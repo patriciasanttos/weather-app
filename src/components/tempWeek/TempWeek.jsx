@@ -57,6 +57,8 @@ function TempWeek() {
     },
   ];
 
+  const currentDayIndex = new Date().getDay();
+
   const getWeatherIcon = (weather) => {
     if (weather === "rainy") {
       return Rainy;
@@ -95,8 +97,12 @@ function TempWeek() {
       </div>
 
       {temperatureData.map((itemNoArray, index) => {
+        const isToday = currentDayIndex === index;
         return (
-          <div className="temp-day" key={index}>
+          <div
+            className={`temp-day ${isToday ? "highlight-today" : "faded-day"}`}
+            key={index}
+          >
             <h3>{itemNoArray.day}</h3>
             <img src={getWeatherIcon(itemNoArray.weather)} alt="" />
             <p>{itemNoArray.maxTemperature}</p>

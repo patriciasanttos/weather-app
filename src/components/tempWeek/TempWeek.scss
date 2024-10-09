@@ -37,6 +37,16 @@
     .temp-day p {
         margin: 5px 0px;
     }
+
+    
+        .highlight-today{
+            color: white;
+            font-weight: bold;
+        }
+    
+        .faded-day {
+            color: #B7B2B2;
+        }
 }
 
 @media (max-width: 768px) {
