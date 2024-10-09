@@ -1,5 +1,6 @@
 import Header from './components/header/Header'
 import Weather from './components/weather/Weather'
+import TempWeek from "./components/tempWeek/TempWeek";
 
 const testWeather = {
   city: 'São Paulo',
@@ -29,6 +30,7 @@ function App() {
       />
 
       <Weather weather={testWeather} />
+      <TempWeek/>
     </>
   )
 }
