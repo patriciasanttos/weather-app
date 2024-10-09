@@ -1,0 +1,39 @@
+.container-temp-week {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    text-align: center;
+    align-items: center;
+    color: white;
+
+    .max-min {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        margin-top: 11%;
+        font-size: 0.9rem;
+
+        .f-row {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            align-items: center;
+            text-align: left;
+        }
+    }
+
+    .temp-day h3 {
+        margin: 10px 0px;
+    }
+
+    .temp-day img {
+        margin: 10px 0px;
+    }
+
+    .temp-day p {
+        margin: 5px 0px;
+    }
+}
