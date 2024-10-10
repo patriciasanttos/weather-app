@@ -20,72 +20,7 @@ const testWeather = {
   date: new Date(Date.now())
 }
 
-const temperatureData = [
-  {
-    day: "Dom",
-    date: "06/10",
-    maxTemperature: "25 Cº",
-    minTemperature: "18 Cº",
-    weather: "sunnyRainy",
-  },
-  {
-    day: "Seg",
-    date: "07/10",
-    maxTemperature: "23 Cº",
-    minTemperature: "18 Cº",
-    weather: "rainy",
-  },
-  {
-    day: "Ter",
-    date: "08/10",
-    maxTemperature: "29 Cº",
-    minTemperature: "20 Cº",
-    weather: "sunny",
-  },
-  {
-    day: "Qua",
-    date: "09/10",
-    maxTemperature: "18 Cº",
-    minTemperature: "15 Cº",
-    weather: "storm",
-  },
-  {
-    day: "Qui",
-    date: "10/10",
-    maxTemperature: "26 Cº",
-    minTemperature: "19 Cº",
-    weather: "cloudy",
-  },
-  {
-    day: "Sex",
-    date: "11/10",
-    maxTemperature: "15 Cº",
-    minTemperature: "10 Cº",
-    weather: "covert",
-  },
-  {
-    day: "Sáb",
-    date: "12/10",
-    maxTemperature: "22 Cº",
-    minTemperature: "16 Cº",
-    weather: "hailRain",
-  },
-  {
-    day: "Dom",
-    date: "13/10",
-    maxTemperature: "22 Cº",
-    minTemperature: "16 Cº",
-    weather: "hailRain",
-  },
 
-  {
-    day: "Seg",
-    date: "14/10",
-    maxTemperature: "22 Cº",
-    minTemperature: "16 Cº",
-    weather: "hailRain",
-  },
-];
 
 function App() {
   return (
@@ -97,7 +32,7 @@ function App() {
       />
 
       <Weather weather={testWeather} />
-      <TempWeek temperatureData={temperatureData} />
+      <TempWeek />
     </>
   );
 }
