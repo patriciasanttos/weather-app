@@ -11,52 +11,7 @@ import Storm from "../../assets/storm.svg";
 import Covert from "../../assets/covert.svg";
 import Cloudy from "../../assets/cloudy.svg";
 
-function TempWeek() {
-  const temperatureData = [
-    {
-      day: "Dom",
-      maxTemperature: "25 Cº",
-      minTemperature: "18 Cº",
-      weather: "sunnyRainy",
-    },
-    {
-      day: "Seg",
-      maxTemperature: "23 Cº",
-      minTemperature: "18 Cº",
-      weather: "rainy",
-    },
-    {
-      day: "Ter",
-      maxTemperature: "29 Cº",
-      minTemperature: "20 Cº",
-      weather: "sunny",
-    },
-    {
-      day: "Qua",
-      maxTemperature: "18 Cº",
-      minTemperature: "15 Cº",
-      weather: "storm",
-    },
-    {
-      day: "Qui",
-      maxTemperature: "26 Cº",
-      minTemperature: "19 Cº",
-      weather: "cloudy",
-    },
-    {
-      day: "Sex",
-      maxTemperature: "15 Cº",
-      minTemperature: "10 Cº",
-      weather: "covert",
-    },
-    {
-      day: "Sáb",
-      maxTemperature: "22 Cº",
-      minTemperature: "16 Cº",
-      weather: "hailRain",
-    },
-  ];
-
+function TempWeek({ temperatureData }) {
   const currentDayIndex = new Date().getDay();
 
   const getWeatherIcon = (weather) => {
@@ -104,6 +59,7 @@ function TempWeek() {
             key={index}
           >
             <h3>{itemNoArray.day}</h3>
+            <p>{itemNoArray.date}</p>
             <img src={getWeatherIcon(itemNoArray.weather)} alt="" />
             <p>{itemNoArray.maxTemperature}</p>
             <p>{itemNoArray.minTemperature}</p>
