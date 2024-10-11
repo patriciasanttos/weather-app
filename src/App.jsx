@@ -8,22 +8,22 @@ import { getWeather } from './services/weather';
 import getDates from './utils/getDates';
 import formatWeatherData from './utils/formatWeatherData';
 
-const fakeWeather = {
-  city: 'São Paulo',
-  state: 'SP',
-  tempScale: 'C',
-  currentTemperature: 25,
-  minTemperature: 20,
-  maxTemperature: 28,
-  thermalSens: 27,
-  humidity: 30,
-  uvScale: 6,
-  rain: 0,
-  airPress: 1009,
-  wind: 9,
-  description: 'Sol',
-  date: new Date(Date.now())
-}
+// const fakeWeather = {
+//   city: 'São Paulo',
+//   state: 'SP',
+//   tempScale: 'C',
+//   currentTemperature: 25,
+//   minTemperature: 20,
+//   maxTemperature: 28,
+//   thermalSens: 27,
+//   humidity: 30,
+//   uvScale: 6,
+//   rain: 0,
+//   airPress: 1009,
+//   wind: 9,
+//   description: 'Sol',
+//   date: new Date(Date.now())
+// }
 
 function App() {
   const [ location, setLocation ] = useState({});
@@ -53,8 +53,14 @@ function App() {
 
     const formatedDataArray = [];
     for (const [ key, value ] of Object.entries(gettedDays)) {
+      if (key === 'timezone')
+        continue;
+
       if (key === 'current') {
-        const newDate = formatWeatherData(key, value);
+        const newDate = formatWeatherData(key, {
+          ...value,
+          timezone: gettedDays.timezone
+        });
   
         formatedDataArray.push({ ...newDate });
       } else {
@@ -62,41 +68,35 @@ function App() {
           const newDate = formatWeatherData(key, {
             date: day.date,
             ...day.day,
+            pressure_mb: day.hour[12].pressure_mb,
+            timezone: gettedDays.timezone
           });
   
           formatedDataArray.push({ ...newDate });
         });
       }
     }
-  
-    setDaysOfMonth([...formatedDataArray]);
-    return formatedDataArray
+    
+    const currentDayData = formatedDataArray.find(data => data.date === gettedDays.current.date);
+    
+    const sortDates = (array) => array.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    return [ sortDates(formatedDataArray), currentDayData ];
   }
 
   useEffect(() => {
-    getClientLocation()
-      .then(clientLocation => {
-        setLocation(clientLocation);
+    const fetchData = async () => {
+      const clientLocation = await getClientLocation();
+      setLocation(clientLocation);
 
-        getClientWeather(clientLocation)
-          .then(formatedDataArray => {
-            function formatDate(date) {
-              const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, '0');
-              const day = String(date.getDate()).padStart(2, '0');
-            
-              return `${year}-${month}-${day}`;
-            }
-        
-            const newDate = formatDate(new Date());
+      const [ formatedDataArray, currentDayData ] = await getClientWeather(clientLocation);
+      setDaysOfMonth([ ...formatedDataArray ]);
+      setCurrentDay(currentDayData);
 
-            const currentDayData = formatedDataArray.filter(data => data.date === newDate);
-    
-            setCurrentDay(currentDayData[0]);
-          });
+      setIsLoading(false);
+    };
 
-        setIsLoading(false);
-      });
+    fetchData();
   }, []);
   
   if (isLoading)
@@ -111,7 +111,11 @@ function App() {
       />
 
       <Weather weather={currentDay} />
-      <TempWeek />
+      <TempWeek 
+        daysOfMonth={daysOfMonth}
+        currentDay={currentDay}
+        setCurrentDay={setCurrentDay}
+      />
     </>
   )
 }

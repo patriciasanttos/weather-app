@@ -15,6 +15,7 @@ export async function getWeather(lat, lon, daysToGet) {
         )
         .catch(error => console.error('Error:', error))
 
+
     return {
         history: history.data.forecast.forecastday,
         forecast: forecast.data.forecast.forecastday.slice(1),
@@ -24,6 +25,7 @@ export async function getWeather(lat, lon, daysToGet) {
             mintemp_c: forecast.data.forecast.forecastday[0].day.mintemp_c,
             maxtemp_c: forecast.data.forecast.forecastday[0].day.maxtemp_c,
             rain: forecast.data.forecast.forecastday[0].day.daily_chance_of_rain
-        }
+        },
+        timezone: forecast.data.location.tz_id
     }
 }
