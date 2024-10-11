@@ -6,46 +6,38 @@ import { useEffect } from 'react';
 import { night, starryNight, sunrise, sunset } from '../../assets/timeIcons';
 
 function Weather({ weather }) {
-  const [ currentWeather, setCurrentWeather ] = useState(weather);
+  const [ currentWeather, setCurrentWeather ] = useState();
 
   const [ icon, setIcon ] = useState('');
   const [ hourIcon, setHourIcon ] = useState('');
   const hour = `${String(new Date().getHours()).padStart(2, '0')}:${String(new Date().getMinutes()).padStart(2, '0')}`;
   
-  const loadInitialFormats = (weather) => {
-    const loadDescription = () => {
+  const loadIcons = (weather) => {
+    const loadDescriptionIcon = () => {
       switch (weather.description) {
-        case 'sunny':
+        case 'Ensolarado':
           setIcon(sunny);
-          setCurrentWeather({ ...currentWeather, description: 'Ensolarado'});
           break;
         case 'hail rain':
           setIcon(hailRain);
-          setCurrentWeather({ ...currentWeather, description: 'Chuva de granizo'});
           break;
         case 'sunny rainy':
           setIcon(sunnyRainy);
-          setCurrentWeather({ ...currentWeather, description: 'Chuva convectiva' });
           break;
         case 'rainy':
           setIcon(rainy);
-          setCurrentWeather({ ...currentWeather, description: 'Chuva' });
           break;
         case 'storm':
           setIcon(storm);
-          setCurrentWeather({ ...currentWeather, description: 'Tempestade' });
           break;
         case 'snowy':
           setIcon(snowy);
-          setCurrentWeather({ ...currentWeather, description: 'Neve' });
           break;
         case 'windy':
           setIcon(windy);
-          setCurrentWeather({ ...currentWeather, description: 'Ventania' });
           break;
         default:
           setIcon(sunny);
-          setCurrentWeather({ ...currentWeather, description: 'Ensolarado'});
       }
     }
 
@@ -65,32 +57,17 @@ function Weather({ weather }) {
         return setHourIcon(night);
     }
 
-    const loadUvScale = () => {
-      switch (weather.uvScale) {
-        case 'minimum':
-          setCurrentWeather({ ...currentWeather, uvScale: 'Mínima' });
-          break;
-        case 'low':
-          setCurrentWeather({ ...currentWeather, uvScale: 'Baixa'});
-          break;
-        case 'elevated':
-          setCurrentWeather({ ...currentWeather, uvScale: 'Elevada'});
-          break;
-        case 'extreme':
-          setCurrentWeather({ ...currentWeather, uvScale: 'Extrema' });
-          break;
-        default:
-          setCurrentWeather({ ...currentWeather, uvScale: 'Baixa'});
-      }
-    }
-
-    loadDescription();
+    loadDescriptionIcon();
     loadHourIcon();
-    loadUvScale();
+
+    setCurrentWeather({
+      ...weather,
+      ...currentWeather
+    })
   }
 
   useEffect(() => {
-    loadInitialFormats(weather);
+    loadIcons(weather);
   }, []);
 
   return (
@@ -99,9 +76,11 @@ function Weather({ weather }) {
         <div className="weather-temperature">
           <div className="weather-icon">
             <img src={icon} alt="" />
-            <h2 className='weather-temperature-text'>{currentWeather.currentTemperature} °{currentWeather.tempScale}</h2>
+            <h2 className='weather-temperature-text'>
+              {weather?.currentTemperature || weather?.minTemperature} °{weather.tempScale}
+            </h2>
           </div>
-          <p className="weather-description">{currentWeather.description}</p>
+          <p className="weather-description">{weather.description}</p>
         </div>
 
         <div className="time">
@@ -110,19 +89,23 @@ function Weather({ weather }) {
             <img src={hourIcon} alt="Horário" />
           </div>
 
-          <p className='thermal-sens'>Sensação térmica: {currentWeather.thermalSens} °{currentWeather.tempScale}</p>
+          {weather.thermalSens && 
+            <p className='thermal-sens'>
+              Sensação térmica: {weather.thermalSens} °{weather.tempScale}
+            </p>
+          }
         </div>
       </div>
       <div className="additional-infos">
-        <ul className="left">
-          <li>Min/Max: {currentWeather.minTemperature}°/{currentWeather.maxTemperature}°</li>
-          <li>Chuva: {currentWeather.rain}%</li>
-          <li>Humidade: {currentWeather.humidity}%</li>
+        <ul>
+          <li>Min/Max: {weather.minTemperature}°/{weather.maxTemperature}°</li>
+          <li>Chuva: {weather.rain}%</li>
+          <li>Humidade: {weather.humidity}%</li>
         </ul>
-        <ul className="right">
-          <li>Índice UV: {currentWeather.uvScale}</li>
-          <li>Pressão: {currentWeather.airPress} mb</li>
-          <li>Ventos: {currentWeather.wind} km/h</li>
+        <ul>
+          <li>Índice UV: {weather.uvScale}</li>
+          <li>Pressão: {weather.airPress} mb</li>
+          <li>Ventos: {weather.wind} km/h</li>
         </ul>
       </div>
     </div>

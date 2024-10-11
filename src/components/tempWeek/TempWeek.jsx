@@ -10,84 +10,50 @@ import Sunny from "../../assets/sunny.svg";
 import Storm from "../../assets/storm.svg";
 import Covert from "../../assets/covert.svg";
 import Cloudy from "../../assets/cloudy.svg";
+import { useState } from "react";
 
-function TempWeek() {
-  const currentDayIndex = new Date().getDay();
+const weekDays = {
+  "Domingo": "Dom",
+  "Segunda-feira": "Seg",
+  "Terça-feira": "Ter",
+  "Quarta-feira": "Qua",
+  "Quinta-feira": "Qui",
+  "Sexta-feira": "Sex",
+  "Sábado": "Sab",
+}
 
-  const temperatureData = [
-    {
-      day: "Dom",
-      date: "06/10",
-      maxTemperature: "25 Cº",
-      minTemperature: "18 Cº",
-      weather: "sunnyRainy",
-    },
-    {
-      day: "Seg",
-      date: "07/10",
-      maxTemperature: "23 Cº",
-      minTemperature: "18 Cº",
-      weather: "rainy",
-    },
-    {
-      day: "Ter",
-      date: "08/10",
-      maxTemperature: "29 Cº",
-      minTemperature: "20 Cº",
-      weather: "sunny",
-    },
-    {
-      day: "Qua",
-      date: "09/10",
-      maxTemperature: "18 Cº",
-      minTemperature: "15 Cº",
-      weather: "storm",
-    },
-    {
-      day: "Qui",
-      date: "10/10",
-      maxTemperature: "26 Cº",
-      minTemperature: "19 Cº",
-      weather: "cloudy",
-    },
-    {
-      day: "Sex",
-      date: "11/10",
-      maxTemperature: "15 Cº",
-      minTemperature: "10 Cº",
-      weather: "covert",
-    },
-    {
-      day: "Sáb",
-      date: "12/10",
-      maxTemperature: "22 Cº",
-      minTemperature: "16 Cº",
-      weather: "hailRain",
-    },
-  ];
+function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
+  const [ selectedDay, setSelectedDay ] = useState(currentDay.date);
 
   const getWeatherIcon = (weather) => {
-    if (weather === "rainy") {
+    if (weather.toLowerCase().includes('chuva') || weather.toLowerCase().includes('aguaceiros')) {
       return Rainy;
     }
-    if (weather === "sunnyRainy") {
+    if (weather.toLowerCase().includes('sol') && weather.toLowerCase().includes('chuva')) {
       return SunnyRainy;
     }
-    if (weather === "hailRain") {
+    if (weather.toLowerCase().includes('granizo')) {
       return HailRain;
     }
-    if (weather === "sunny") {
+    if (weather.toLowerCase().includes('sol')) {
       return Sunny;
     }
-    if (weather === "storm") {
+    if (weather.toLowerCase().includes('tempestade') || (weather.toLowerCase().includes('chuva') && weather.toLowerCase().includes('forte'))) {
       return Storm;
     }
-    if (weather === "covert") {
+    if (weather.toLowerCase().includes('nublado') || weather.toLowerCase().includes('encoberto')) {
       return Covert;
     }
-    if (weather === "cloudy") {
+    if (weather.toLowerCase().includes('limpo')) {
       return Cloudy;
     }
+  };
+
+  const changeDay = (date) => {
+    const currentDayData = daysOfMonth.find(data => data.date === date);
+
+    setCurrentDay(currentDayData);
+    setSelectedDay(date);
   };
 
   return (
@@ -103,18 +69,20 @@ function TempWeek() {
         </div>
       </div>
 
-      {temperatureData.map((itemNoArray, index) => {
-        const isToday = currentDayIndex === index;
+      {daysOfMonth.map((date) => {
+        const isSelectedDay = selectedDay === date.date;
+
         return (
           <div
-            className={`temp-day ${isToday ? "highlight-today" : "faded-day"}`}
-            key={index}
+            className={`temp-day ${isSelectedDay ? "highlight-today" : "faded-day"}`}
+            key={date.date}
+            onClick={() => changeDay(date.date)}
           >
-            <h3>{itemNoArray.day}</h3>
-            <p>{itemNoArray.date}</p>
-            <img src={getWeatherIcon(itemNoArray.weather)} alt="" />
-            <p>{itemNoArray.maxTemperature}</p>
-            <p>{itemNoArray.minTemperature}</p>
+            <h3>{weekDays[date.weekDayName]}</h3>
+            <p>{date.date.slice(5)}</p>
+            <img src={getWeatherIcon(date.description)} alt="" />
+            <p>{date.maxTemperature} °{date.tempScale}</p>
+            <p>{date.minTemperature} °{date.tempScale}</p>
           </div>
         );
       })}
