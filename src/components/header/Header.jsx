@@ -1,6 +1,5 @@
+import SearchBar from './searchbar/SearchBar';
 import './styles.scss';
-
-import searchIcon from '../../assets/search.svg';
 
 function Header({ city, state, date }) {
   const setFirstLetterUppercase = (word) => {
@@ -23,10 +22,7 @@ function Header({ city, state, date }) {
     <div className='header'>
       <p className='header-city'>{city} - {state}</p>
 
-      <div className='header-search-bar-container'>
-        <input className='header-search-bar' type='text' placeholder='Pesquisar local' />
-        <img className='search-icon' src={searchIcon} alt='Pesquisar' />
-      </div>
+      <SearchBar />
 
       <p className='header-date'>{formatDate(date)}</p>
     </div>
