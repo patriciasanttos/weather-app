@@ -1,69 +1,64 @@
+import { useState, useRef, useEffect } from 'react';
+import { getPlaces } from '../../../services/places';
+
 import './styles.scss';
-
 import searchIcon from '../../../assets/search.svg';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useRef } from 'react';
 
-const locales = [
-    "São Paulo - SP",
-    "Campinas - SP",
-    "Santos - SP",
-    "Sorocaba - SP",
-    "Ribeirão Preto - SP",
-    "São José dos Campos - SP",
-    "Guarulhos - SP",
-    "Bauru - SP",
-    "Jundiaí - SP",
-    "Piracicaba - SP",
-  
-    "Belo Horizonte - MG",
-    "Uberlândia - MG",
-    "Juiz de Fora - MG",
-    "Contagem - MG",
-    "Betim - MG",
-    "Montes Claros - MG",
-    "Uberaba - MG",
-    "Governador Valadares - MG",
-    "Sete Lagoas - MG",
-    "Divinópolis - MG"
-];
+function SearchBar({ setLocation }) {
+    const [ query, setQuery ] = useState('');
+    const [ suggestions, setSuggestions ] = useState([]);
 
-function SearchBar() {
-    const [suggestions, setSuggestions] = useState([]);
     const searchContainerRef = useRef(null);
-
-    const search = (item) => {
-        if (!item)
-            return setSuggestions([]);
-
-        const searchResult = locales.filter(city => {
-            city = city
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/[^\w\s]/gi, '')
-                .toLowerCase();
-
-            return city.includes(item);
-        })
-
-        setSuggestions(searchResult);
-        console.log(searchResult);
-    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-          if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
-            setSuggestions([]);
-          }
+          if (searchContainerRef.current && !searchContainerRef.current.contains(event.target))
+            return setSuggestions([]);
         };
-    
         document.addEventListener('mousedown', handleClickOutside);
     
         return () => {
           document.removeEventListener('mousedown', handleClickOutside);
         };
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            if (query)
+                search(query);
+
+            else
+                setSuggestions([]);
+        }, 300);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [query]);
+
+    const search = async () => {
+        const normalizedQuery = query
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^\w\s]/gi, '')
+            .trim()
+            .replace(/\s+/g, '_')
+            .toLowerCase();
+
+        const gettedPlaces = await getPlaces(normalizedQuery);
+
+        setSuggestions(gettedPlaces);
+    }
+
+    const onSelectSuggestion = (place) => {
+        setLocation({
+            city: place.name,
+            state: place.state,
+            lat: place.lat,
+            lon: place.lon,
+            date: new Date(Date.now())
+        });
+    }
 
     return (
         <div ref={searchContainerRef} className='search-bar-container'>
@@ -71,7 +66,7 @@ function SearchBar() {
                 className='search-bar' 
                 type='text' 
                 placeholder='Pesquisar local' 
-                onChange={e => search(e.target.value)}
+                onChange={e => setQuery(e.target.value)}
             />
             <img className='search-icon' src={searchIcon} alt='Pesquisar' />
 
@@ -81,8 +76,10 @@ function SearchBar() {
                     <li
                         className='suggestion-item'
                         key={index}
+                        onClick={() => onSelectSuggestion(suggestion)}
                     >
-                    {suggestion}
+                        <div className='suggestion-name'>{suggestion.name}</div>
+                        <div className='suggestion-description'>{suggestion.state}</div>
                     </li>
                 ))}
                 </ul>

@@ -1,12 +1,11 @@
-import SearchBar from './searchbar/SearchBar';
 import './styles.scss';
 
-function Header({ city, state, date }) {
-  const setFirstLetterUppercase = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
-
+function Header({ children, city, state, date }) {
   const formatDate = (date) => {
+    const setFirstLetterUppercase = (word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
     const optionsWeekday = { weekday: 'long' };
     const optionsDay = { day: '2-digit' };
     const optionsMonth = { month: 'long' };
@@ -22,7 +21,7 @@ function Header({ city, state, date }) {
     <div className='header'>
       <p className='header-city'>{city} - {state}</p>
 
-      <SearchBar />
+      { children }
 
       <p className='header-date'>{formatDate(date)}</p>
     </div>

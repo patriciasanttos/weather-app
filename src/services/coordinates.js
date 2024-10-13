@@ -7,5 +7,5 @@ export async function getCoordinates(ip) {
         .then(res => {
             return res.data;
         })
-        .catch(error => console.error('Erro ao obter coordenadas:', error))
+        .catch(error => console.error('Coordinates/Error:', error))
 }

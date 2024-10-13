@@ -5,5 +5,11 @@ export async function getIp() {
         .then(res => {
             return res.data.ip;
         })
-        .catch(error => console.error('Erro ao obter o IP:', error))
+        .catch(async () => {
+            return await axios.get('http://ip-api.com/json')
+                .then(res => {
+                    return res.data.query;
+                })
+                .catch(error => console.error('IP/Error:', error));
+        })
 }

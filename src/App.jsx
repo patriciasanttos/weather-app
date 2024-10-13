@@ -1,36 +1,28 @@
+import { useEffect, useRef, useState } from 'react';
+
 import Header from './components/header/Header'
 import Weather from './components/weather/Weather'
 import TempWeek from "./components/tempWeek/TempWeek";
-import { useEffect, useState } from 'react';
+
 import { getIp } from './services/ip';
 import { getCoordinates } from './services/coordinates';
 import { getWeather } from './services/weather';
+
 import getDates from './utils/getDates';
 import formatWeatherData from './utils/formatWeatherData';
+import SearchBar from './components/header/searchbar/SearchBar';
+import Loading from './components/loading/Loading';
 
-// const fakeWeather = {
-//   city: 'São Paulo',
-//   state: 'SP',
-//   tempScale: 'C',
-//   currentTemperature: 25,
-//   minTemperature: 20,
-//   maxTemperature: 28,
-//   thermalSens: 27,
-//   humidity: 30,
-//   uvScale: 6,
-//   rain: 0,
-//   airPress: 1009,
-//   wind: 9,
-//   description: 'Sol',
-//   date: new Date(Date.now())
-// }
 
 function App() {
-  const [ location, setLocation ] = useState({});
+  const [ initialLocation, setInitialLocation ] = useState();
+  const [ location, setLocation ] = useState();
+
   const [ daysOfMonth, setDaysOfMonth ] = useState([]);
-  const [ currentDay, setCurrentDay ] = useState({});
+  const [ currentDay, setCurrentDay ] = useState();
 
   const [ isLoading, setIsLoading ] = useState(true);
+  const isFirstRender = useRef(true);
 
   const getClientLocation = async () => {
     const clientIp = await getIp();
@@ -53,13 +45,13 @@ function App() {
 
     const formatedDataArray = [];
     for (const [ key, value ] of Object.entries(gettedDays)) {
-      if (key === 'timezone')
+      if (key === 'location')
         continue;
 
       if (key === 'current') {
         const newDate = formatWeatherData(key, {
           ...value,
-          timezone: gettedDays.timezone
+          timezone: gettedDays.location.timezone
         });
   
         formatedDataArray.push({ ...newDate });
@@ -69,7 +61,7 @@ function App() {
             date: day.date,
             ...day.day,
             pressure_mb: day.hour[12].pressure_mb,
-            timezone: gettedDays.timezone
+            timezone: gettedDays.location.timezone
           });
   
           formatedDataArray.push({ ...newDate });
@@ -81,34 +73,63 @@ function App() {
     
     const sortDates = (array) => array.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    return [ sortDates(formatedDataArray), currentDayData ];
+    return { 
+      formatedDataArray: sortDates(formatedDataArray), 
+      currentDayData: currentDayData
+    };
   }
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       const clientLocation = await getClientLocation();
-      setLocation(clientLocation);
+      setInitialLocation(clientLocation);
 
-      const [ formatedDataArray, currentDayData ] = await getClientWeather(clientLocation);
+      const { formatedDataArray, currentDayData } = await getClientWeather(clientLocation);
       setDaysOfMonth([ ...formatedDataArray ]);
       setCurrentDay(currentDayData);
 
       setIsLoading(false);
     };
 
-    fetchData();
+    fetchInitialData();
   }, []);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (location) {
+      const changeLocation = async () => {
+        setIsLoading(true);
+  
+        const { formatedDataArray, currentDayData } = await getClientWeather({
+          latitude: location?.lat, 
+          longitude: location?.lon
+        });
+        setDaysOfMonth([ ...formatedDataArray ]);
+        setCurrentDay(currentDayData);
+    
+        return setIsLoading(false);
+      }
+  
+      changeLocation();
+    }
+  }, [location]);
   
   if (isLoading)
-    return <div>Loading...</div>
+    return <Loading />
 
   return (
     <>
       <Header 
-        city={location.city}
-        state={location.state}
-        date={location.date}
-      />
+        city={location ? location.city : initialLocation.city}
+        state={location ? location.state : initialLocation.state}
+        date={location ? location.date : initialLocation.date}
+      >
+        <SearchBar setLocation={setLocation} />
+      </Header>
 
       <Weather weather={currentDay} />
       <TempWeek 
