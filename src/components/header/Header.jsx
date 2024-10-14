@@ -1,13 +1,11 @@
 import './styles.scss';
 
-import searchIcon from '../../assets/search.svg';
-
-function Header({ city, state, date }) {
-  const setFirstLetterUppercase = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
-
+function Header({ children, city, state, date }) {
   const formatDate = (date) => {
+    const setFirstLetterUppercase = (word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
     const optionsWeekday = { weekday: 'long' };
     const optionsDay = { day: '2-digit' };
     const optionsMonth = { month: 'long' };
@@ -23,10 +21,7 @@ function Header({ city, state, date }) {
     <div className='header'>
       <p className='header-city'>{city} - {state}</p>
 
-      <div className='header-search-bar-container'>
-        <input className='header-search-bar' type='text' placeholder='Pesquisar local' />
-        <img className='search-icon' src={searchIcon} alt='Pesquisar' />
-      </div>
+      { children }
 
       <p className='header-date'>{formatDate(date)}</p>
     </div>
