@@ -4,6 +4,7 @@
     justify-content: space-evenly;
 
     margin-top: 5%;
+    width: 100%;
     text-align: center;
     align-items: center;
     color: white;
@@ -26,6 +27,24 @@
         }
     }
 
+        .arrows-left {
+            cursor: pointer;
+        }
+
+        .arrows-right {
+            cursor: pointer;
+        }
+
+
+    .weather-icons {
+        max-width: 70px;
+        height: 70px;
+    }
+
+    .temp-day {
+        cursor: pointer;
+    }
+
     .temp-day h3 {
         margin: 10px 0px;
     }
@@ -38,71 +57,39 @@
         margin: 5px 0px;
     }
 
-    
-        .highlight-today{
-            background-color: #424040;
-            border-radius: 10px;
 
-            color: white;
-            font-weight: bold;
-            font-size: 16pt;
+    .highlight-today {
+        background-color: #424040;
+        border-radius: 10px;
 
-            width: 8%;
-        }
-    
-        .faded-day {
-            color: #B7B2B2;
-        }
+        color: white;
+        font-weight: bold;
+        font-size: 16pt;
+
+        width: 10%;
+    }
+
+    .faded-day {
+        color: #B7B2B2;
+    }
 }
 
-@media (max-width: 768px) {
-    .container-temp-week {
-        justify-content: initial;
-        margin: 0px 15px;
-        overflow-x: scroll;
-        scrollbar-width: none;
 
-        margin-top: 10%;
+@media (min-width: 569px) and (max-width: 968px){
+.container-temp-week {
+        margin-top: 60px;
 
-        .temp-day {
-            flex: 0 0 auto;
-            width: 19%;
-            // margin: 10% 0;
-        }
     }
 
-    .container-temp-week::-webkit-scrollbar {
-        display: none;
-    }
 }
 
 @media (max-width: 568px) {
     .container-temp-week {
-        justify-content: initial;
-        margin: 0px 15px;
-        overflow-x: scroll;
-        scrollbar-width: none;
-
-        margin-top: 20%;
-
-        .temp-day {
-            flex: 0 0 auto;
-            width: 29%;
-            // margin: 10% 0;
-        }
-    }
-
-    .container-temp-week::-webkit-scrollbar {
-        display: none;
-    }
-}
-
-@media (min-width: 780px) and (max-width: 968px) {
-    .container-temp-week {
-        margin-top: 20%;
+        margin-top: 60px;
 
         .highlight-today {
-            width: 12%;
+            width: 25%;
         }
+
     }
 }
