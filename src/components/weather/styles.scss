@@ -16,7 +16,7 @@
                 align-items: center;
 
                 img {
-                    width: 60%;
+                    max-width: 45%;
                     height: 60%;
                 }
 
@@ -114,6 +114,7 @@
 @media (max-width: 568px) {
     .weather-container {
         .weather-info {
+            margin-top: 40px;
             display: flex;
             flex-direction: column;
             gap: 30px;
