@@ -11,7 +11,7 @@ import Sunny from "../../assets/sunny.svg";
 import Storm from "../../assets/storm.svg";
 import Covert from "../../assets/covert.svg";
 import Cloudy from "../../assets/cloudy.svg";
-import ArrowLeft from "../../assets/arrow_left.svg"
+import ArrowLeft from "../../assets/arrow_left.svg";
 import ArrowRight from "../../assets/arrow_right.svg";
 import { useState } from "react";
 import useResponsive from "../../hooks/useResponsive";
@@ -28,12 +28,13 @@ const weekDays = {
 
 function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
   const [selectedDay, setSelectedDay] = useState(currentDay.date);
-  const {isMobile} = useResponsive()
+  const { isMobile } = useResponsive();
 
   const getWeatherIcon = (weather) => {
     if (
       weather.toLowerCase().includes("chuva") ||
-      weather.toLowerCase().includes("aguaceiros")
+      weather.toLowerCase().includes("aguaceiros") ||
+      weather.toLowerCase().includes("chuvisco")
     ) {
       return Rainy;
     }
@@ -82,31 +83,98 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
       }
     }
 
-    const daysToShow = isMobile
-      ? [
-          daysOfMonth[todayIndex - 1],
+    if (!isMobile) {
+      if (todayIndex === 0) {
+        return [
           daysOfMonth[todayIndex],
           daysOfMonth[todayIndex + 1],
-        ]
-      : [
-          daysOfMonth[todayIndex - 2],
+          daysOfMonth[todayIndex + 2],
+        ];
+      }
+
+      if (todayIndex === 1) {
+        return [
           daysOfMonth[todayIndex - 1],
           daysOfMonth[todayIndex],
           daysOfMonth[todayIndex + 1],
           daysOfMonth[todayIndex + 2],
         ];
+      }
 
-    return daysToShow;
+      if (todayIndex === daysOfMonth.length - 1) {
+        return [
+          daysOfMonth[todayIndex - 2],
+          daysOfMonth[todayIndex - 1],
+          daysOfMonth[todayIndex],
+        ];
+      }
+
+      if (todayIndex === daysOfMonth.length - 2) {
+        return [
+          daysOfMonth[todayIndex - 2],
+          daysOfMonth[todayIndex - 1],
+          daysOfMonth[todayIndex],
+          daysOfMonth[todayIndex + 1],
+        ];
+      }
+
+      return [
+        daysOfMonth[todayIndex - 2],
+        daysOfMonth[todayIndex - 1],
+        daysOfMonth[todayIndex],
+        daysOfMonth[todayIndex + 1],
+        daysOfMonth[todayIndex + 2],
+      ];
+    } else {
+      if (todayIndex === 0) {
+        return [
+          daysOfMonth[todayIndex],
+          daysOfMonth[todayIndex + 1],
+          daysOfMonth[todayIndex + 2],
+        ];
+      }
+
+      if (todayIndex === 1) {
+        return [
+          daysOfMonth[todayIndex - 1],
+          daysOfMonth[todayIndex],
+          daysOfMonth[todayIndex + 1],
+        ];
+      }
+
+      if (todayIndex === daysOfMonth.length - 1) {
+        return [
+          daysOfMonth[todayIndex - 2],
+          daysOfMonth[todayIndex - 1],
+          daysOfMonth[todayIndex],
+        ];
+      }
+
+      if (todayIndex === daysOfMonth.length - 2) {
+        return [
+          daysOfMonth[todayIndex - 1],
+          daysOfMonth[todayIndex],
+          daysOfMonth[todayIndex + 1],
+        ];
+      }
+
+      return [
+        daysOfMonth[todayIndex - 1],
+        daysOfMonth[todayIndex],
+        daysOfMonth[todayIndex + 1],
+      ];
+    }
   };
 
   const onClickNextDay = () => {
     setSelectedDay(moment(selectedDay).add(1, "days").format("YYYY-MM-DD"));
-  }
+  };
 
-   const onClickPreviousDay = () => {
+  const onClickPreviousDay = () => {
     setSelectedDay(moment(selectedDay).add(-1, "days").format("YYYY-MM-DD"));
-   };
+  };
 
+  console.log(daysOfMonth);
   return (
     <section className="container-temp-week">
       {!isMobile && (
@@ -122,8 +190,7 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
         </div>
       )}
 
-      
-      {selectedDay !== daysOfMonth[isMobile ? 1 : 2].date && (
+      {selectedDay !== daysOfMonth[0].date && (
         <div onClick={onClickPreviousDay} className="arrows-left">
           <img src={ArrowLeft} alt="" />
         </div>
@@ -155,8 +222,7 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
           </div>
         );
       })}
-      {selectedDay !==
-        daysOfMonth[daysOfMonth.length - (isMobile ? 2 : 3)].date && (
+      {selectedDay !== daysOfMonth[daysOfMonth.length - 1].date && (
         <div className="arrows-right">
           <img onClick={onClickNextDay} src={ArrowRight} alt="" />
         </div>
