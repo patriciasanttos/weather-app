@@ -13,7 +13,7 @@ import Covert from "../../assets/covert.svg";
 import Cloudy from "../../assets/cloudy.svg";
 import ArrowLeft from "../../assets/arrow_left.svg";
 import ArrowRight from "../../assets/arrow_right.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useResponsive from "../../hooks/useResponsive";
 
 const weekDays = {
@@ -23,12 +23,19 @@ const weekDays = {
   "Quarta-feira": "Qua",
   "Quinta-feira": "Qui",
   "Sexta-feira": "Sex",
-  Sábado: "Sab",
+  "Sábado": "Sab",
 };
 
 function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
-  const [selectedDay, setSelectedDay] = useState(currentDay.date);
+  const [selectedDay, setSelectedDay] = useState(currentDay.date); 
+  const [visibleDay, setVisibleDay] = useState(currentDay.date); 
   const { isMobile } = useResponsive();
+
+  
+  useEffect(() => {
+    setSelectedDay(currentDay.date);
+    setVisibleDay(currentDay.date); 
+  }, [currentDay]);
 
   const getWeatherIcon = (weather) => {
     if (
@@ -70,15 +77,14 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
 
   const changeDay = (date) => {
     const currentDayData = daysOfMonth.find((data) => data.date === date);
-
     setCurrentDay(currentDayData);
-    setSelectedDay(date);
+    setSelectedDay(date); 
   };
 
   const getDatesToShow = () => {
     let todayIndex = null;
     for (let i = 0; i < daysOfMonth.length; i++) {
-      if (selectedDay === daysOfMonth[i].date) {
+      if (visibleDay === daysOfMonth[i].date) {
         todayIndex = i;
       }
     }
@@ -167,14 +173,15 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
   };
 
   const onClickNextDay = () => {
-    setSelectedDay(moment(selectedDay).add(1, "days").format("YYYY-MM-DD"));
+    const nextDay = moment(visibleDay).add(1, "days").format("YYYY-MM-DD");
+    setVisibleDay(nextDay); 
   };
 
   const onClickPreviousDay = () => {
-    setSelectedDay(moment(selectedDay).add(-1, "days").format("YYYY-MM-DD"));
+    const prevDay = moment(visibleDay).add(-1, "days").format("YYYY-MM-DD");
+    setVisibleDay(prevDay); 
   };
 
-  console.log(daysOfMonth);
   return (
     <section className="container-temp-week">
       {!isMobile && (
@@ -190,21 +197,26 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
         </div>
       )}
 
-      {selectedDay !== daysOfMonth[0].date && (
+      {visibleDay !== daysOfMonth[0].date && (
         <div onClick={onClickPreviousDay} className="arrows-left">
           <img src={ArrowLeft} alt="" />
         </div>
       )}
       {getDatesToShow().map((date) => {
-        const isSelectedDay = selectedDay === date.date;
+        const isSelectedDay = selectedDay === date.date; 
+        const isVisibleDay = visibleDay === date.date; 
 
         return (
           <div
             className={`temp-day ${
-              isSelectedDay ? "highlight-today" : "faded-day"
+              isSelectedDay
+                ? "highlight-today"
+                : isVisibleDay
+                ? ""
+                : "faded-day"
             }`}
             key={date.date}
-            onClick={() => changeDay(date.date)}
+            onClick={() => changeDay(date.date)} 
           >
             <h3>{weekDays[date.weekDayName]}</h3>
             <p>{moment(date.date).format("DD/MM")}</p>
@@ -222,7 +234,7 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
           </div>
         );
       })}
-      {selectedDay !== daysOfMonth[daysOfMonth.length - 1].date && (
+      {visibleDay !== daysOfMonth[daysOfMonth.length - 1].date && (
         <div className="arrows-right">
           <img onClick={onClickNextDay} src={ArrowRight} alt="" />
         </div>
