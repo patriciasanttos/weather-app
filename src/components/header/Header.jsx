@@ -5,14 +5,10 @@ function Header({ children, city, state, date }) {
     const setFirstLetterUppercase = (word) => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     }
-
-    const optionsWeekday = { weekday: 'long' };
-    const optionsDay = { day: '2-digit' };
-    const optionsMonth = { month: 'long' };
   
-    const weekday = date.toLocaleDateString('pt-BR', optionsWeekday);
-    const day = date.toLocaleDateString('pt-BR', optionsDay);
-    const month = date.toLocaleDateString('pt-BR', optionsMonth);
+    const weekday = date.toLocaleDateString('pt-BR', { weekday: 'long' });
+    const day = date.toLocaleDateString('pt-BR', { day: '2-digit' });
+    const month = date.toLocaleDateString('pt-BR', { month: 'long' });
   
     return `${setFirstLetterUppercase(weekday)} (${day}) - ${setFirstLetterUppercase(month)}`;
   }

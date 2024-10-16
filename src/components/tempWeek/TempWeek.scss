@@ -1,76 +1,98 @@
 .container-temp-week {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
 
     margin-top: 5%;
+    padding: 0 10% 0 10%;
     width: 100%;
-    text-align: center;
-    align-items: center;
-    color: white;
+    height: 15rem;
 
     .max-min {
+        color: white;
+
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 0.5em;
 
-        margin-top: 162px;
+        margin-top: 10rem;
         font-size: 0.9rem;
+
+        position: absolute;
+        left: 11.3%;
 
         .f-row {
             display: flex;
             flex-direction: row;
             gap: 10px;
-
             align-items: center;
             text-align: left;
         }
     }
 
-        .arrows-left {
-            cursor: pointer;
-        }
+    .week-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
 
-        .arrows-right {
-            cursor: pointer;
-        }
-
-
-    .weather-icons {
-        max-width: 70px;
-        height: 70px;
-    }
-
-    .temp-day {
-        cursor: pointer;
-    }
-
-    .temp-day h3 {
-        margin: 10px 0px;
-    }
-
-    .temp-day img {
-        margin: 10px 0px;
-    }
-
-    .temp-day p {
-        margin: 5px 0px;
-    }
-
-
-    .highlight-today {
-        background-color: #424040;
-        border-radius: 10px;
-
+        min-width: 90%;
         color: white;
-        font-weight: bold;
-        font-size: 16pt;
+        
+        .arrows-left {
+            position: absolute;
+            left: 11.5%;
 
-        width: 10%;
-    }
+            cursor: pointer;
+        }
+        .arrows-right {
+            position: absolute;
+            right: 11.5%;
 
-    .faded-day {
-        color: #B7B2B2;
+            cursor: pointer;
+        }
+
+        .temp-day {
+            width: 15%;
+            
+            cursor: pointer;
+    
+            h3 {
+                margin: 10px 0px;
+            }
+    
+            img {
+                margin: 10px 0px;
+            }
+    
+            p {
+                margin: 5px 0px;
+            }
+    
+            .weather-icons {
+                max-width: 70px;
+                height: 70px;
+            }
+        }
+
+        .highlight-today {
+            background-color: #424040;
+            border-radius: 10px;
+    
+            color: white;
+            font-weight: bold;
+            font-size: 16pt;
+        }
+    
+        .faded-day {
+            color: #B7B2B2;
+        }
+
+        .faded-current-day {
+            color: white;
+        }
     }
 }
 
@@ -78,9 +100,7 @@
 @media (min-width: 569px) and (max-width: 968px){
 .container-temp-week {
         margin-top: 60px;
-
     }
-
 }
 
 @media (max-width: 568px) {
@@ -90,6 +110,5 @@
         .highlight-today {
             width: 25%;
         }
-
     }
 }

@@ -27,14 +27,26 @@ const weekDays = {
 };
 
 function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
-  const [selectedDay, setSelectedDay] = useState(currentDay.date); 
-  const [visibleDay, setVisibleDay] = useState(currentDay.date); 
+  const [ selectedDay, setSelectedDay ] = useState(currentDay.date); 
+  const [ visibleDay, setVisibleDay ] = useState(currentDay.date); 
   const { isMobile } = useResponsive();
+  const [ today, setToday ] = useState();
 
-  
   useEffect(() => {
     setSelectedDay(currentDay.date);
     setVisibleDay(currentDay.date); 
+
+    function formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() retorna 0-11, então adicionamos 1
+      const day = String(date.getDate()).padStart(2, '0');
+      
+      return `${year}-${month}-${day}`;
+    }
+    
+    setToday(
+      formatDate(new Date())
+    );
   }, [currentDay]);
 
   const getWeatherIcon = (weather) => {
@@ -197,48 +209,53 @@ function TempWeek({ daysOfMonth, currentDay, setCurrentDay }) {
         </div>
       )}
 
-      {visibleDay !== daysOfMonth[0].date && (
-        <div onClick={onClickPreviousDay} className="arrows-left">
-          <img src={ArrowLeft} alt="" />
-        </div>
-      )}
-      {getDatesToShow().map((date) => {
-        const isSelectedDay = selectedDay === date.date; 
-        const isVisibleDay = visibleDay === date.date; 
 
-        return (
-          <div
-            className={`temp-day ${
-              isSelectedDay
-                ? "highlight-today"
-                : isVisibleDay
-                ? ""
-                : "faded-day"
-            }`}
-            key={date.date}
-            onClick={() => changeDay(date.date)} 
-          >
-            <h3>{weekDays[date.weekDayName]}</h3>
-            <p>{moment(date.date).format("DD/MM")}</p>
-            <img
-              className="weather-icons"
-              src={getWeatherIcon(date.description)}
-              alt=""
-            />
-            <p>
-              {date.maxTemperature} °{date.tempScale}
-            </p>
-            <p>
-              {date.minTemperature} °{date.tempScale}
-            </p>
+      <div className="week-content">
+        {visibleDay !== daysOfMonth[0].date && (
+          <div onClick={onClickPreviousDay} className="arrows-left">
+            <img src={ArrowLeft} alt="" />
           </div>
-        );
-      })}
-      {visibleDay !== daysOfMonth[daysOfMonth.length - 1].date && (
-        <div className="arrows-right">
-          <img onClick={onClickNextDay} src={ArrowRight} alt="" />
-        </div>
-      )}
+        )}
+
+        {getDatesToShow().map((date) => {
+          const isSelectedDay = selectedDay === date.date; 
+          const isCurrentDay = today === date.date; 
+
+          return (
+            <div
+              className={`temp-day ${
+                isSelectedDay
+                  ? "highlight-today"
+                  : isCurrentDay
+                    ? "faded-current-day"
+                    : "faded-day"
+              }`}
+              key={date.date}
+              onClick={() => changeDay(date.date)} 
+            >
+              <h3>{weekDays[date.weekDayName]}</h3>
+              <p>{moment(date.date).format("DD/MM")}</p>
+              <img
+                className="weather-icons"
+                src={getWeatherIcon(date.description)}
+                alt=""
+              />
+              <p>
+                {date.maxTemperature} °{date.tempScale}
+              </p>
+              <p>
+                {date.minTemperature} °{date.tempScale}
+              </p>
+            </div>
+          );
+        })}
+        
+        {visibleDay !== daysOfMonth[daysOfMonth.length - 1].date && (
+          <div className="arrows-right">
+            <img onClick={onClickNextDay} src={ArrowRight} alt="" />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
