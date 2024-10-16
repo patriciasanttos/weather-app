@@ -7,9 +7,11 @@
         justify-content: space-between;
         align-items: center;
 
-        margin: 3% 10% 0 10%;
+        margin: 3em 10em 0 10em;
 
         .weather-temperature {
+            width: 25%;
+
             .weather-icon {
                 display: flex;
                 flex-direction: row;
@@ -17,7 +19,7 @@
                 width: 90%;
 
                 img {
-                    max-width: 110px;
+                    max-width: 7em;
                     height: 60%;
                 }
 
@@ -29,14 +31,19 @@
             }
 
             .weather-description {
-                margin: 5% 0 0 4%;
+                margin-top: 5%;
                 font-size: 15pt;
                 font-weight: 300;
                 margin-right: 10px;
+                
+                width: 80%;
+                height: 3rem;
             }
         }
 
         .time {
+            width: 25%;
+
             .hour {
                 display: flex;
                 flex-direction: row;
@@ -46,13 +53,12 @@
                 h2 {
                     margin-top: 10%;
                     font-size: 40pt;
+                    margin-right: 10%;
                 }
 
                 img {
-                    width: 40%;
-                    height: 40%;
-
-                    margin-left: 10%;
+                    max-width: 7em;
+                    height: 50%;
                 }
             }
 
@@ -66,13 +72,14 @@
     .additional-infos {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-evenly;
 
-        margin-top: 5%;
+        margin: 2% 15% 0 15%;
+        height: 7em;
 
         ul {
             list-style-type: none;
-            margin: 0 5% 0 5%;
+            width: 20%;
         }
 
         li {

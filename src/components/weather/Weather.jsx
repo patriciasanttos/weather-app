@@ -77,7 +77,7 @@ function Weather({ weather }) {
           <div className="weather-icon">
             <img src={icon} alt="" />
             <h2 className='weather-temperature-text'>
-              {weather?.currentTemperature || weather?.minTemperature} °{weather.tempScale}
+              {weather?.currentTemperature || weather?.minTemperature} <br /> °{weather.tempScale}
             </h2>
           </div>
           <p className="weather-description">{weather.description}</p>
