@@ -40,13 +40,14 @@
 
         min-width: 90%;
         color: white;
-        
+
         .arrows-left {
             position: absolute;
             left: 11.5%;
 
             cursor: pointer;
         }
+
         .arrows-right {
             position: absolute;
             right: 11.5%;
@@ -56,21 +57,21 @@
 
         .temp-day {
             width: 15%;
-            
+
             cursor: pointer;
-    
+
             h3 {
                 margin: 10px 0px;
             }
-    
+
             img {
                 margin: 10px 0px;
             }
-    
+
             p {
                 margin: 5px 0px;
             }
-    
+
             .weather-icons {
                 max-width: 70px;
                 height: 70px;
@@ -80,12 +81,12 @@
         .highlight-today {
             background-color: #424040;
             border-radius: 10px;
-    
+
             color: white;
             font-weight: bold;
             font-size: 16pt;
         }
-    
+
         .faded-day {
             color: #B7B2B2;
         }
@@ -111,9 +112,26 @@
 @media (max-width: 767px) {
     .container-temp-week {
         margin-top: 5%;
+        margin-bottom: 10%;
 
         .week-content .highlight-today {
             width: 25%;
+        }
+
+        .arrows-left {
+            left: 8% !important;
+
+            img {
+                width: 40px;
+            }
+        }
+
+        .arrows-right {
+            right: 5% !important;
+
+            img {
+                width: 40px;
+            }
         }
     }
 }

@@ -40,6 +40,10 @@
             width: 45%;
             height: 40%;
         }
+
+        .header-date {
+            right: 2%;
+        }
     }
 }
 
@@ -63,6 +67,7 @@
 
         .header-city {
             position: relative;
+            width: 100%;
         }
     
         .header-date {
