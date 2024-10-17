@@ -96,18 +96,23 @@
     }
 }
 
-
-@media (min-width: 569px) and (max-width: 968px){
-.container-temp-week {
-        margin-top: 60px;
+@media (max-width: 1440px) {
+    .container-temp-week {
+        margin-top: 5%;
     }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 968px) {
     .container-temp-week {
-        margin-top: 60px;
+        margin-top: 10%;
+    }
+}
 
-        .highlight-today {
+@media (max-width: 767px) {
+    .container-temp-week {
+        margin-top: 5%;
+
+        .week-content .highlight-today {
             width: 25%;
         }
     }
