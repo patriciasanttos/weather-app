@@ -5,13 +5,13 @@ export async function getWeather(lat, lon, daysToGet) {
 
     const history = await axios
         .get(
-            `http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${lat},${lon}&lang=pt&dt=${daysToGet.daysBefore}&end_dt=${daysToGet.yesterday}`
+            `https://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${lat},${lon}&lang=pt&dt=${daysToGet.daysBefore}&end_dt=${daysToGet.yesterday}`
         )
         .catch(error => console.error('Weather/Error:', error))
 
     const forecast = await axios
         .get(
-            `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&lang=pt&days=14`
+            `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&lang=pt&days=14`
         )
         .catch(error => console.error('Weather/Error:', error))
 
