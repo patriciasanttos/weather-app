@@ -213,7 +213,7 @@
                 }
 
                 .weather-description {
-                    width: 235% !important;
+                    width: 194% !important;
                 }
             }
 
@@ -277,7 +277,7 @@
 
                 .thermal-sens {
                     font-size: 15pt;
-                    width: 280%;
+                    width: 330%;
                 }
             }
         }
@@ -294,5 +294,21 @@
                 font-size: 12pt;
             }
         }
+    }
+}
+
+@media (min-width: 319px) and (max-width: 479px) {
+    .weather-container {
+        .weather-info {
+            margin: 10% 5% 0 20%;
+
+            .time {
+
+                .thermal-sens {
+                    width: 180%;
+                }
+            }
+        }
+
     }
 }

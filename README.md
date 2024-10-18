@@ -6,6 +6,9 @@ Projeto consiste na criação de um site de API de clima
 - É possível verificar o clima de outros locais na barra de pesquisa
 - Ao selecionar uma data, é possível verificar as informações mais detalhadas sobre o clima
 
+### Visualizar app
+- [Weather App](https://weather-app-delta-three-15.vercel.app)
+
 ### Pré-requisitos
 - Node.js instalado na máquina
 - Git instalado para clonar o repositório
