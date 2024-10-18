@@ -1,8 +1,25 @@
-# React + Vite
+# App Weather
+Projeto consiste na criação de um site de API de clima
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Como funciona
+- Ao carregar a página já estará disponível as atualizações climáticas na localização do usuário
+- É possível verificar o clima de outros locais na barra de pesquisa
+- Ao selecionar uma data, é possível verificar as informações mais detalhadas sobre o clima
 
-Currently, two official plugins are available:
+### Pré-requisitos
+- Node.js instalado na máquina
+- Git instalado para clonar o repositório
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Como Clonar o Repositório
+- Para clonar o repositório, execute o seguinte comando no terminal:
+
+```bash
+https://github.com/hector59a2b9297/weather-app.git
+```
+
+### Instalação da Aplicação
+- Após clonar o repositório, acesse a pasta do projeto e instale as dependências necessárias:
+```bash
+cd nome-do-projeto
+npm install
+```
