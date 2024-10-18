@@ -3,12 +3,12 @@
     background: linear-gradient(to right, #4C026E, #6F04A1);
 
     height: 9vh;
-    width: 100%;
+    min-width: 100vw;
     padding: 0 2% 0 2%;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     .header-city,
@@ -23,6 +23,14 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        position: absolute;
+        left: 5%;
+    }
+
+    .header-date {
+        position: absolute;
+        right: 5%;
     }
 }
 
@@ -31,6 +39,10 @@
         .header-search-bar-container {
             width: 45%;
             height: 40%;
+        }
+
+        .header-date {
+            right: 2%;
         }
     }
 }
@@ -41,28 +53,72 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
+        text-align: center;
 
-        height: 12vh;
+        height: 10vh;
 
         .header-city,
         .header-date {
-            font-size: 1rem;
+            font-size: 10pt;
             font-weight: 600;
+            right: 0;
+            left: 0;
+        }
+
+        .header-city {
+            position: relative;
+            width: 100%;
+        }
+    
+        .header-date {
+            position: relative;
         }
     }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 576px) {
     .header {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
 
-        height: 9vh;
+        height: 10vh;
 
         .header-city,
         .header-date {
-            font-size: 1rem;
+            font-size: 10pt;
+            font-weight: 600;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        height: 10vh;
+
+        .header-city,
+        .header-date {
+            font-size: 10pt;
+            font-weight: 600;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        height: 10vh;
+
+        .header-city,
+        .header-date {
+            font-size: 9pt;
             font-weight: 600;
         }
     }

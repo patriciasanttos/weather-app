@@ -5,11 +5,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
 
-        margin: 3% 10% 0 10%;
+        margin: 3em 10em 0 10em;
 
         .weather-temperature {
+            width: 21%;
+
             .weather-icon {
                 display: flex;
                 flex-direction: row;
@@ -17,7 +18,7 @@
                 width: 90%;
 
                 img {
-                    max-width: 110px;
+                    max-width: 7em;
                     height: 60%;
                 }
 
@@ -29,14 +30,19 @@
             }
 
             .weather-description {
-                margin: 5% 0 0 4%;
+                margin-top: 5%;
                 font-size: 15pt;
                 font-weight: 300;
                 margin-right: 10px;
+
+                width: 80%;
+                height: 3rem;
             }
         }
 
         .time {
+            width: auto;
+
             .hour {
                 display: flex;
                 flex-direction: row;
@@ -46,13 +52,12 @@
                 h2 {
                     margin-top: 10%;
                     font-size: 40pt;
+                    margin-right: 10%;
                 }
 
                 img {
-                    width: 40%;
-                    height: 40%;
-
-                    margin-left: 10%;
+                    max-width: 7em;
+                    height: 50%;
                 }
             }
 
@@ -66,13 +71,14 @@
     .additional-infos {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-evenly;
 
-        margin-top: 5%;
+        margin: 2% 15% 0 15%;
+        height: 7em;
 
         ul {
             list-style-type: none;
-            margin: 0 5% 0 5%;
+            width: 25%;
         }
 
         li {
@@ -83,47 +89,204 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1440px) {
     .weather-container {
-        .weather-temperature {
-            .weather-temperature-text {
-                font-size: 30pt !important;
-            }
-        }
-
-        .time {
-            h2 {
-                font-size: 30pt !important;
-            }
-
-            .thermal-sens {
-                font-size: 15pt !important;
-            }
-        }
-
         .additional-infos {
-            margin-top: 12%;
-
-            li {
-                font-size: 13pt;
-            }
+            margin-top: 5%;
         }
-
     }
 }
 
-@media (max-width: 568px) {
+@media (max-width: 968px) {
     .weather-container {
         .weather-info {
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            .weather-temperature {
+                width: 30%;
+
+                .weather-icon .weather-temperature-text {
+                    font-size: 36pt;
+                }
+            }
+
+            .time {
+                padding-bottom: 5%;
+
+                h2 {
+                    font-size: 30pt;
+                }
+
+                .thermal-sens {
+                    font-size: 15pt;
+                }
+            }
         }
 
         .additional-infos {
-            margin-top: 12%;
+            margin: 5% 20% 0 25%;
+            height: 6em;
+
+            ul {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .weather-container {
+        .weather-info {
+            flex-direction: column;
+            margin-left: 30%;
+
+
+            .weather-temperature {
+                align-self: flex-start;
+                width: 60%;
+
+                .weather-temperature-text {
+                    font-size: 30pt;
+                    white-space: nowrap;
+                    margin-bottom: 0.5em;
+
+                    br {
+                        display: none;
+                    }
+                }
+
+                .weather-description {
+                    font-size: 15pt;
+                    font-weight: 300;
+                    width: 235% !important;
+                }
+            }
+
+            .time {
+                align-self: flex-end;
+                width: 60%;
+                margin-right: 40%;
+
+                h2 {
+                    font-size: 30pt;
+                }
+
+                .thermal-sens {
+                    font-size: 15pt;
+                    width: 200%;
+                }
+            }
         }
 
+        .additional-infos {
+            margin: 8% 10% 10% 20%;
+            height: 6em;
+
+            ul {
+                width: 60%;
+            }
+
+            li {
+                font-size: 14pt;
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .weather-container {
+        .weather-info {
+            margin-left: 25%;
+
+            flex-direction: column;
+
+            .weather-temperature {
+                align-self: flex-start;
+                width: 55%;
+
+                .weather-temperature-text {
+                    font-size: 30pt;
+                }
+
+                .weather-description {
+                    width: 235% !important;
+                }
+            }
+
+            .time {
+                align-self: flex-end;
+                width: 55%;
+                margin-right: 45%;
+
+                h2 {
+                    font-size: 30pt;
+                }
+
+                .thermal-sens {
+                    font-size: 15pt;
+                    width: 220%;
+                }
+            }
+        }
+
+        .additional-infos {
+            margin: 12% 10% 0 13%;
+            height: 6em;
+
+            ul {
+                width: 35vw;
+            }
+
+            li {
+                font-size: 14pt;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-container {
+        .weather-info {
+            flex-direction: column;
+
+            .weather-temperature {
+                align-self: flex-start;
+                width: 55%;
+
+                .weather-temperature-text {
+                    font-size: 30pt;
+                }
+
+                .weather-description {
+                    width: 205%;
+                }
+            }
+
+            .time {
+                align-self: flex-end;
+                width: 55%;
+                margin-right: 45%;
+
+                h2 {
+                    font-size: 30pt;
+                }
+
+                .thermal-sens {
+                    font-size: 15pt;
+                    width: 280%;
+                }
+            }
+        }
+
+        .additional-infos {
+            margin: 10% 10% 0 16%;
+            height: 6em;
+
+            ul {
+                width: 40vw;
+            }
+
+            li {
+                font-size: 12pt;
+            }
+        }
     }
 }
