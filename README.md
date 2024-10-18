@@ -14,7 +14,7 @@ Projeto consiste na criação de um site de API de clima
 - Para clonar o repositório, execute o seguinte comando no terminal:
 
 ```bash
-https://github.com/hector59a2b9297/weather-app.git
+https://github.com/patriciasanttos/weather-app.git
 ```
 
 ### Instalação da Aplicação
