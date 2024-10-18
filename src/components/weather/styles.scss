@@ -97,9 +97,11 @@
     }
 }
 
-@media (max-width: 968px) {
+@media (min-width: 818px) and (max-width: 968px) {
     .weather-container {
         .weather-info {
+            margin: 5% 15% 0 15%;
+
             .weather-temperature {
                 width: 30%;
 
@@ -122,11 +124,15 @@
         }
 
         .additional-infos {
-            margin: 5% 20% 0 25%;
+            margin: 5% 10% 0 25%;
             height: 6em;
 
             ul {
                 width: 50%;
+            }
+
+            li {
+                font-size: 14pt;
             }
         }
     }

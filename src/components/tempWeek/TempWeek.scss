@@ -99,7 +99,8 @@
 
 @media (max-width: 1440px) {
     .container-temp-week {
-        margin-top: 5%;
+        margin: 5% 0 2% 0;
+        
     }
 }
 
@@ -111,8 +112,7 @@
 
 @media (max-width: 767px) {
     .container-temp-week {
-        margin-top: 5%;
-        margin-bottom: 10%;
+        margin: 5% 0 5% 0;
 
         .week-content .highlight-today {
             width: 25%;
