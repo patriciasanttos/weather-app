@@ -6,6 +6,12 @@ Projeto consiste na criação de um site de API de clima
 - É possível verificar o clima de outros locais na barra de pesquisa
 - Ao selecionar uma data, é possível verificar as informações mais detalhadas sobre o clima
 
+### API's utilizadas:
+- https://ipgeolocation.io/documentation.html
+- https://ip-api.com/docs
+- https://opencagedata.com/api
+- https://www.weatherapi.com/docs/
+
 ### Pré-requisitos
 - Node.js instalado na máquina
 - Git instalado para clonar o repositório
