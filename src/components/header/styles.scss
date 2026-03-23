@@ -34,7 +34,7 @@
     }
 }
 
-@media (min-width: 818px) and (max-width: 1600px) {
+@media (min-width: 1025px) and (max-width: 1600px) {
     .header {
         .header-search-bar-container {
             width: 45%;
@@ -47,6 +47,44 @@
     }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .header {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 5%;
+        height: auto;
+        min-height: 9vh;
+        gap: 6px;
+
+        .header-city,
+        .header-date {
+            position: relative;
+            left: auto;
+            right: auto;
+            font-size: 1.1rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .header-city {
+            width: auto;
+            max-width: 45%;
+            order: 1;
+        }
+
+        .header-date {
+            order: 2;
+        }
+
+        .search-bar-container {
+            width: 50%;
+            height: 36px;
+            order: 3;
+            margin: 0 auto;
+        }
+    }
+}
 
 @media (max-width: 768px) {
     .header {
@@ -55,11 +93,14 @@
         justify-content: space-evenly;
         text-align: center;
 
-        height: 12vh;
+        height: auto;
+        min-height: 10vh;
+        padding: 8px 2%;
+        gap: 4px;
 
         .header-city,
         .header-date {
-            font-size: 10pt;
+            font-size: 11pt;
             font-weight: 600;
             right: 0;
             left: 0;
@@ -83,10 +124,11 @@
         justify-content: space-evenly;
 
         height: 12vh;
+        padding-top: 8px;
 
         .header-city,
         .header-date {
-            font-size: 10pt;
+            font-size: 11pt;
             font-weight: 600;
         }
     }
@@ -98,7 +140,8 @@
         flex-direction: column;
         justify-content: space-evenly;
 
-        height: 10vh;
+        height: 11vh;
+        padding-top: 6px;
 
         .header-city,
         .header-date {
